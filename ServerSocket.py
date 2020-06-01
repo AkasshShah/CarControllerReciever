@@ -2,7 +2,7 @@ import socket
 import sys
 
 # ServerIP = 'localhost'
-ServerIP = socket.gethostbyname(socket.gethostname())
+ServerIP = socket.gethostbyname(socket.getfqdn())
 ServerPort = 42069
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
