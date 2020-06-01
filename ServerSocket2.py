@@ -1,15 +1,11 @@
 import socket
 import struct
 import sys
+from specialMsgHandling import *
 
 possibleMsgs = {
     b"quit": closeConnection
 }
-
-def closeConnection():
-    print("closing")
-    connection.close()
-    state = possibleStates[1]
 
 def getIP():
     with open("/proc/net/route") as fh:

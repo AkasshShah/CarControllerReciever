@@ -7,9 +7,9 @@ def getIP():
     s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET,
     socket.SOCK_DGRAM)]][0][1]]) if l][0][0])
 
-# ServerIP = 'localhost'
+ServerIP = 'localhost'
 # ServerIP = socket.gethostbyname(socket.getfqdn())
-ServerIP = getIP()
+# ServerIP = getIP()
 ServerPort = 42069
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
