@@ -21,6 +21,7 @@ sock.bind(server_address)
 sock.listen(1)
 connection = None
 n = 1
+connection = None
 while True:
     if connection is None or connection.fileno() == -1:
         print(sys.stderr, 'waiting for a connection')
