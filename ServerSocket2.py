@@ -3,26 +3,7 @@ import struct
 import sys
 import netifaces
 
-possibleMsgs = {
-    b"quit": closeConnection
-}
-
-def closeConnection():
-    print("closing")
-    connection.close()
-    state = possibleStates[1]
-
-def getIP():
-    return(netifaces.ifaddresses('eth0')[2][0]['addr'])
-
-def handleMessage(msg):
-    if msg in possibleMsgs.keys():
-        print(msg)
-        possibleMsgs[msg](connection)
-    else:
-        print(msg)
-
-ServerIP = getIP()
+ServerIP = netifaces.ifaddresses('eth0')[2][0]['addr']
 ServerPort = 42069
 connection = None
 
@@ -31,6 +12,22 @@ possibleStates = [
     "listening" # 1
 ]
 state = possibleStates[1]
+
+def closeConnection():
+    print("closing")
+    connection.close()
+    state = possibleStates[1]
+
+possibleMsgs = {
+    b"quit": closeConnection
+}
+
+def handleMessage(msg):
+    if msg in possibleMsgs.keys():
+        print(msg)
+        possibleMsgs[msg](connection)
+    else:
+        print(msg)
 
 if __name__ == "__main__":
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
