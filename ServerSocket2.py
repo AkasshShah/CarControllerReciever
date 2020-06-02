@@ -2,6 +2,7 @@ import socket
 import struct
 import sys
 import netifaces
+import time
 
 ServerIP = netifaces.ifaddresses('eth0')[2][0]['addr']
 ServerPort = 42069
@@ -55,4 +56,4 @@ if __name__ == "__main__":
                 handleMessage(received_message)
         except:
             state = possibleStates[1]
-            pass
+            time.sleep(5)
