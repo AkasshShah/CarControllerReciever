@@ -13,6 +13,7 @@ possibleStates = [
 ]
 state = possibleStates[1]
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.bind(server_address)
 def closeConnection():
     global state
     global connection
@@ -42,13 +43,14 @@ if __name__ == "__main__":
     n = 1
     connection = None
     while True:
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.bind(server_address)
-        if state == possibleStates[1]:
-            print('waiting for a connection at', ServerIP, ServerPort)
-            connection, address = sock.accept()
-            print("connected from", address)
-            state = possibleStates[0]
-        received_message = connection.recv(1024)
-        if received_message:
-            handleMessage(received_message)
+        try:
+            if state == possibleStates[1]:
+                print('waiting for a connection at', ServerIP, ServerPort)
+                connection, address = sock.accept()
+                print("connected from", address)
+                state = possibleStates[0]
+            received_message = connection.recv(1024)
+            if received_message:
+                handleMessage(received_message)
+        except:
+            pass
