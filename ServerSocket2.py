@@ -45,6 +45,5 @@ if __name__ == "__main__":
             print("connected from", address)
             state = possibleStates[0]
         received_message = connection.recv(1024)
-        if not received_message:
-            continue
-        handleMessage(received_message)
+        if received_message:
+            handleMessage(received_message)
