@@ -51,6 +51,8 @@ if __name__ == "__main__":
                 state = possibleStates[0]
             received_message = connection.recv(1024)
             if received_message:
+                state = possibleStates[0]
                 handleMessage(received_message)
         except:
+            state = possibleStates[1]
             pass
