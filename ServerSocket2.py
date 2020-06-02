@@ -13,7 +13,7 @@ possibleStates = [
 ]
 state = possibleStates[1]
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.bind(server_address)
+sock.bind(server_address)
 def closeConnection():
     global state
     global connection
