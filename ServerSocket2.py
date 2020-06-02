@@ -2,18 +2,14 @@ import socket
 import struct
 import sys
 from specialMsgHandling import *
+import netifaces
 
 possibleMsgs = {
     b"quit": closeConnection
 }
 
 def getIP():
-    with open("/proc/net/route") as fh:
-        for line in fh:
-            fields = line.strip().split()
-            if fields[1] != '00000000' or not int(fields[3], 16) & 2:
-                continue
-            return socket.inet_ntoa(struct.pack("<L", int(fields[2], 16)))
+    return(netifaces.ifaddresses('eth0')[2][0]['addr'])
 
 def handleMessage(msg):
     if msg in possibleMsgs.keys():
