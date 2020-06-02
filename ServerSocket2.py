@@ -12,7 +12,7 @@ possibleStates = [
     "listening" # 1
 ]
 state = possibleStates[1]
-
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 def closeConnection():
     global state
     global connection
