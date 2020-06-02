@@ -25,7 +25,7 @@ possibleMsgs = {
 def handleMessage(msg):
     if msg in possibleMsgs.keys():
         print(msg)
-        possibleMsgs[msg](connection)
+        possibleMsgs[msg]()
     else:
         print(msg)
 
