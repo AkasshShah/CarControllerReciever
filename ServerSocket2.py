@@ -16,7 +16,8 @@ state = possibleStates[1]
 def closeConnection():
     print("closing")
     connection.close()
-    state = possibleStates[1]
+    global state = possibleStates[1]
+    sock.close()
 
 possibleMsgs = {
     b"quit": closeConnection
@@ -30,9 +31,7 @@ def handleMessage(msg):
         print(msg)
 
 if __name__ == "__main__":
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_address = (ServerIP, ServerPort)
-    sock.bind(server_address)
     print("starting at", ServerIP, "on port", ServerPort)
     # Listen for incoming connections
     sock.listen(1)
@@ -40,6 +39,8 @@ if __name__ == "__main__":
     n = 1
     connection = None
     while True:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.bind(server_address)
         if state == possibleStates[1]:
             print('waiting for a connection at', ServerIP, ServerPort)
             connection, address = sock.accept()
