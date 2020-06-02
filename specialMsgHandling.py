@@ -2,7 +2,7 @@ import socket
 import struct
 import sys
 
-def closeConnection(connection):
+def closeConnection():
     print("closing")
     connection.close()
     state = possibleStates[1]

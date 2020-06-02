@@ -1,12 +1,16 @@
 import socket
 import struct
 import sys
-from specialMsgHandling import *
 import netifaces
 
 possibleMsgs = {
     b"quit": closeConnection
 }
+
+def closeConnection():
+    print("closing")
+    connection.close()
+    state = possibleStates[1]
 
 def getIP():
     return(netifaces.ifaddresses('eth0')[2][0]['addr'])
