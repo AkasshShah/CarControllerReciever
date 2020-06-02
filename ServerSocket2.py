@@ -14,7 +14,7 @@ def getIP():
 def handleMessage(msg):
     if msg in possibleMsgs.keys():
         print(msg)
-        possibleMsgs[msg]()
+        possibleMsgs[msg](connection)
     else:
         print(msg)
 
