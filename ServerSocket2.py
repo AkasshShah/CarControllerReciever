@@ -53,7 +53,8 @@ if __name__ == "__main__":
             except:
                 print("here")
                 time.sleep(5)
-        received_message = connection.recv(1024)
+        if state == possibleStates[0]:
+            received_message = connection.recv(1024)
         if received_message:
             state = possibleStates[0]
             handleMessage(received_message)
