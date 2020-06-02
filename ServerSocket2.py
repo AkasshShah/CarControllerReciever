@@ -53,6 +53,11 @@ if __name__ == "__main__":
             except:
                 print("here")
                 time.sleep(5)
+                print('waiting for a connection at', ServerIP, ServerPort)
+                connection, address = sock.accept()
+                print("connected from", address)
+                state = possibleStates[0]
+
         if state == possibleStates[0]:
             received_message = connection.recv(1024)
         if received_message:
