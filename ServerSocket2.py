@@ -44,22 +44,19 @@ if __name__ == "__main__":
     n = 1
     connection = None
     while True:
-        if state == possibleStates[1]:
-            try:
-                print('waiting for a connection at', ServerIP, ServerPort)
-                connection, address = sock.accept()
-                print("connected from", address)
+        while True:
+            if state == possibleStates[1]:
+                try:
+                    print('waiting for a connection at', ServerIP, ServerPort)
+                    connection, address = sock.accept()
+                    print("connected from", address)
+                    state = possibleStates[0]
+                except:
+                    print("here")
+                    connection.close()
+                    break
+            if state == possibleStates[0]:
+                received_message = connection.recv(1024)
+            if received_message:
                 state = possibleStates[0]
-            except:
-                print("here")
-                time.sleep(5)
-                print('waiting for a connection at', ServerIP, ServerPort)
-                connection, address = sock.accept()
-                print("connected from", address)
-                state = possibleStates[0]
-
-        if state == possibleStates[0]:
-            received_message = connection.recv(1024)
-        if received_message:
-            state = possibleStates[0]
-            handleMessage(received_message)
+                handleMessage(received_message)
