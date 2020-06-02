@@ -12,6 +12,7 @@ possibleStates = [
     "listening" # 1
 ]
 state = possibleStates[1]
+server_address = (ServerIP, ServerPort)
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.bind(server_address)
 def closeConnection():
@@ -35,7 +36,6 @@ def handleMessage(msg):
         print(msg)
 
 if __name__ == "__main__":
-    server_address = (ServerIP, ServerPort)
     print("starting at", ServerIP, "on port", ServerPort)
     # Listen for incoming connections
     sock.listen(1)
