@@ -38,12 +38,11 @@ def handleMessage(msg):
 
 if __name__ == "__main__":
     print("starting at", ServerIP, "on port", ServerPort)
-    # Listen for incoming connections
-    sock.listen(1)
     connection = None
     n = 1
     connection = None
     while True:
+        sock.listen(1)
         while True:
             if state == possibleStates[1]:
                 try:
