@@ -14,9 +14,11 @@ possibleStates = [
 state = possibleStates[1]
 
 def closeConnection():
+    global state
+    global connection
+    global sock
     print("closing")
     connection.close()
-    global state
     state = possibleStates[1]
     sock.close()
 
