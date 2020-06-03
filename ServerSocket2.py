@@ -39,7 +39,6 @@ def handleMessage(msg):
 if __name__ == "__main__":
     print("starting at", ServerIP, "on port", ServerPort)
     connection = None
-    n = 1
     connection = None
     while True:
         sock.listen(1)
