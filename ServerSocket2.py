@@ -32,8 +32,8 @@ def toggleHeadlight():
     pass
 
 possibleMsgs = {
-    b"quit": closeConnection,
-    b"headlight": toggleHeadlight
+    "quit": closeConnection,
+    "headlight": toggleHeadlight
 }
 
 def handleMessage(recvdMsg):
