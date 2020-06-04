@@ -42,10 +42,13 @@ def handleMessage(recvdMsg):
     if msg in possibleMsgs.keys():
         possibleMsgs[msg]()
     else:
-        decoded = json.loads(msg)
-        forward = decoded['f']
-        right = decoded['r']
-        print("f =", forward, "\tright =", right)
+        try:
+            decoded = json.loads(msg)
+            forward = decoded['f']
+            right = decoded['r']
+            print("f =", forward, "\tright =", right)
+        except:
+            print("too much data")
 
 if __name__ == "__main__":
     print("starting at", ServerIP, "on port", ServerPort)
