@@ -3,6 +3,7 @@ import struct
 import sys
 import netifaces
 import time
+import json
 
 ServerIP = netifaces.ifaddresses('eth0')[2][0]['addr']
 ServerPort = 42069
@@ -16,6 +17,8 @@ state = possibleStates[1]
 server_address = (ServerIP, ServerPort)
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.bind(server_address)
+forward = 0.0
+right = 0.0
 def closeConnection():
     global state
     global connection
@@ -31,10 +34,12 @@ possibleMsgs = {
 
 def handleMessage(msg):
     if msg in possibleMsgs.keys():
-        print(msg)
         possibleMsgs[msg]()
     else:
-        print(msg)
+        decoded = json.loads(msg)
+        forward = decoded['f']
+        right = decoded['r']
+        print("f =", forward, "\tright =", right)
 
 if __name__ == "__main__":
     print("starting at", ServerIP, "on port", ServerPort)
