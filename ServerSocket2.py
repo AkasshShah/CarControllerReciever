@@ -28,11 +28,16 @@ def closeConnection():
     state = possibleStates[1]
     sock.close()
 
+def toggleHeadlight():
+    pass
+
 possibleMsgs = {
-    b"quit": closeConnection
+    b"quit": closeConnection,
+    b"headlight": toggleHeadlight
 }
 
 def handleMessage(msg):
+    print(msg)
     if msg in possibleMsgs.keys():
         possibleMsgs[msg]()
     else:
