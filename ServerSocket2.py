@@ -36,7 +36,8 @@ possibleMsgs = {
     b"headlight": toggleHeadlight
 }
 
-def handleMessage(msg):
+def handleMessage(recvdMsg):
+    msg = recvdMsg.decode('ascii')
     print(msg)
     if msg in possibleMsgs.keys():
         possibleMsgs[msg]()
