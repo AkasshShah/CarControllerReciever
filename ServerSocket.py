@@ -10,13 +10,13 @@ possibleStates = [
     "connected" # 1
 ]
 
+def getIP(interface = "eth0"):
+    return netifaces.ifaddresses(interface)[2][0]['addr']
+
 possibleMsgsAndCorrespondingFunctions = {
     "quit": closeConnection,
     "headlight": toggleHeadlight
 }
-
-def getIP(interface = "eth0"):
-    return netifaces.ifaddresses(interface)[2][0]['addr']
 
 ServerIP = getIP()
 ServerPort = 42069
