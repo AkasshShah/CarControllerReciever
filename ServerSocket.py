@@ -4,6 +4,7 @@ import sys
 import netifaces
 import time
 import json
+import os
 
 possibleStates = [
     "listening", # 0
@@ -25,9 +26,17 @@ def closeConnection(state, connection, sock):
 def toggleHeadlight(state, connection, sock):
     pass
 
+def shutdown(state, connection, sock):
+    os.system("sudo shutdown +0")
+
+def reboot(state, connection, sock):
+    os.system("sudo shutdown -r +0")
+
 possibleMsgsAndCorrespondingFunctions = {
     "quit": closeConnection,
-    "headlight": toggleHeadlight
+    "headlight": toggleHeadlight,
+    "shutdown": shutdown,
+    "reboot": reboot
 }
 
 def handleMessage(recvdMsg, frState, state, connection, sock):
@@ -42,7 +51,7 @@ def handleMessage(recvdMsg, frState, state, connection, sock):
             forward = decoded['f']
             right = decoded['r']
             print("r =", right, "\tf =", forward)
-            rtn = (right, forward)
+            rtn = {"r": right, "f": forward}
             return rtn
         except:
             print("too much data")

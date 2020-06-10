@@ -13,7 +13,7 @@ if __name__ == "__main__":
     sock = SS.startSocket()
     sock.listen(1)
     sockState = SS.possibleStates[0]
-    frState = (0.0, 0.0)
+    frState = {"r": 0.0, "f": 0.0}
     GP.pinsSetup() # now redundant, but fine to keep
     try:
         while True:

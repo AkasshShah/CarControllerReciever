@@ -31,3 +31,13 @@ frontServo = Servo(11, 50)
 
 def pinsCleanup():
     GPIO.cleanup()
+
+def setMotion(frState):
+    setRtLtMotion(frState["r"])
+    setFdBkMotion(frState["f"])
+
+def setFdBkMotion(fFloat):
+    pass
+
+def setRtLtMotion(rFloat):
+    pass
