@@ -27,7 +27,7 @@ class Servo:
 
 pinsSetup()
 rearMotorPin = Pin(7, GPIO.OUT)
-frontServo = GPIO.PWM(11, 50)
+frontServo = Servo(11, 50)
 
 def pinsCleanup():
     GPIO.cleanup()
