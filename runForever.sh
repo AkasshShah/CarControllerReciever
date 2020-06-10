@@ -1,3 +1,3 @@
 while true ; do
-    python3 ServerSocket2.py
+    python3 main.py
 done
