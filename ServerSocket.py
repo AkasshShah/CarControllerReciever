@@ -22,13 +22,13 @@ def closeConnection(state, connection, sock):
     state = possibleStates[1]
     sock.close()
 
+def toggleHeadlight(state, connection, sock):
+    pass
+
 possibleMsgsAndCorrespondingFunctions = {
     "quit": closeConnection,
     "headlight": toggleHeadlight
 }
-
-def toggleHeadlight(state, connection, sock):
-    pass
 
 def handleMessage(recvdMsg, frState, state, connection, sock):
     msg = recvdMsg.decode('ascii')
