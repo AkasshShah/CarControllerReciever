@@ -13,11 +13,6 @@ possibleStates = [
 def getIP(interface = "eth0"):
     return netifaces.ifaddresses(interface)[2][0]['addr']
 
-possibleMsgsAndCorrespondingFunctions = {
-    "quit": closeConnection,
-    "headlight": toggleHeadlight
-}
-
 ServerIP = getIP()
 ServerPort = 42069
 
@@ -26,6 +21,11 @@ def closeConnection(state, connection, sock):
     connection.close()
     state = possibleStates[1]
     sock.close()
+
+possibleMsgsAndCorrespondingFunctions = {
+    "quit": closeConnection,
+    "headlight": toggleHeadlight
+}
 
 def toggleHeadlight(state, connection, sock):
     pass
