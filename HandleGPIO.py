@@ -5,13 +5,13 @@ def pinsSetup():
     GPIO.setmode(GPIO.BOARD)
 
 class Pin:
-    def init(self, boardPinNum: int, IO):
+    def __init__(self, boardPinNum: int, IO):
         self.pin = boardPinNum
         self.IO = IO
         GPIO.setup(self.pin, self.IO)
 
 class Servo:
-    def init(self, pin: int, pulseClock):
+    def __init__(self, pin: int, pulseClock):
         piin = Pin(pin, GPIO.OUT)
         self.Pin = piin
         self.pulse = pulseClock # in Hz
