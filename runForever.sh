@@ -1,3 +1,6 @@
+MYDIR = "$(dirname "$(which "$0")")"
+PATHTOSCRIPT = "${MYDIR}/main.py"
+echo "$PATHTOSCRIPT"
 while true ; do
-    python3 main.py
+    /usr/bin/python3 $PATHTOSCRIPT
 done
