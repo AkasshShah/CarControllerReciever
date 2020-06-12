@@ -3,7 +3,7 @@ Description=Car Reciever Service
 After=network.target
 
 [Service]
-ExecStart=/home/pi/CarControllerReciever/runForever.sh
+ExecStart=/usr/bin/python3 /home/pi/CarControllerReciever/main.py
 WorkingDirectory=/home/pi/CarControllerReciever
 StandardOutput=inherit
 StandardError=inherit
