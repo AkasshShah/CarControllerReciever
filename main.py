@@ -9,6 +9,7 @@ import ServerSocket as SS
 import HandleGPIO as GP
 
 if __name__ == "__main__":
+    print(sys.argv)
     print("starting at", SS.ServerIP, "on port", SS.ServerPort, "pid: ", os.getpid())
     connection = None
     sock = SS.startSocket()
