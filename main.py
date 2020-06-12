@@ -10,6 +10,9 @@ import HandleGPIO as GP
 
 if __name__ == "__main__":
     print(sys.argv)
+    with open(".pids", "w") as file1:
+        L = ["bash pid: " + str(sys.argv[-1]), "pyth pid: " + str(os.getpid())]
+        file1.writelines(L)
     print("starting at", SS.ServerIP, "on port", SS.ServerPort, "pid: ", os.getpid())
     connection = None
     sock = SS.startSocket()
