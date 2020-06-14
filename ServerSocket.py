@@ -15,8 +15,8 @@ def getIP(interface = "eth0"):
     return netifaces.ifaddresses(interface)[2][0]['addr']
 
 ServerIP = getIP()
-# ServerPort = 42069
-ServerPort = 99
+ServerPort = 42069
+# ServerPort = 99
 
 def closeConnection(state, connection, sock):
     print("closing")
