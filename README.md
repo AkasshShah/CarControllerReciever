@@ -7,19 +7,19 @@ This project tackles the mundane RC Cars problems. I always loved RC cars but so
 This projects requires that you have a Raspberry Pi and its OS installed and ready to go. This project also requires a RC car that is going to be modded. The car's front steering system needs to be controlled by a 3 pin servo and not a 5 pin servo. If there is a 5 pin servo in your car, swap it out for a 3 pin servo or just use a controller board of a 3 pin servo to make the 5 pin servo into a 3 pin servo. I do not recommend the second method.
 ## Instructions
 In the Raspberry Pi, ```cd```  into ```/home/pi/``` and clone this repo by typing the following into the terminal:
-```(bash)
+```bash
 git clone https://github.com/AkasshShah/CarControllerReciever.git
 ```
 Then ```cd``` into the created directory:
-```(bash)
+```bash
 cd CarControllerReciever
 ```
 Copy the .service file into the ```/etc/systemd/system/``` directory:
-```(bash)
+```bash
 sudo cp CarReciever.service /etc/systemd/system/CarReciever.service
 ```
 Then Start and Enable the service:
-```(bash)
+```bash
 sudo systemctl start myscript.service
 sudo systemctl enable myscript.service
 ```
