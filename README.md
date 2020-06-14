@@ -25,5 +25,5 @@ sudo systemctl enable myscript.service
 ```
 Enabling the the service just means that it will start on boot.
 ## Resources
-[Raspberry Pi](https://www.raspberrypi.org/)
-[Systemd and services in raspberry pi](https://www.raspberrypi.org/documentation/linux/usage/systemd.md)
+- [Raspberry Pi](https://www.raspberrypi.org/)
+- [Systemd and services in raspberry pi](https://www.raspberrypi.org/documentation/linux/usage/systemd.md)
