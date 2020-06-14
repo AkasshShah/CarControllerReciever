@@ -20,8 +20,8 @@ sudo cp CarReciever.service /etc/systemd/system/CarReciever.service
 ```
 Then Start and Enable the service:
 ```shell
-sudo systemctl start myscript.service
-sudo systemctl enable myscript.service
+sudo systemctl start CarReciever.service
+sudo systemctl enable CarReciever.service
 ```
 Enabling the the service just means that it will start on boot.
 ## Resources
