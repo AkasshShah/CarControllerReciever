@@ -31,24 +31,13 @@ class Servo:
         self.servo.ChangeDutyCycle(0)
 
 class Motor:
-    def __init__(self, fwPin: int, speedPin: int):
-        self.fwPin = Pin(fwPin, GPIO.OUT)
-        self.speedPin = Pin(speedPin, GPIO.OUT)
-
-
-pinsSetup()
-# rearMotorPin = Pin(7, GPIO.OUT)
-frontServo = Servo(11, 50)
+    def __init__(self, enablePin, pin1, pin2):
+        self.enablePin = Pin(enablePin, GPIO.OUT)
+        self.pin1 = Pin(pin1, GPIO.OUT)
+        self.pin2 = Pin(pin2, GPIO.OUT)
+    
+    def enableDisable(self, tOrF):
+        self.enablePin
 
 def pinsCleanup():
     GPIO.cleanup()
-
-def setMotion(frState):
-    setRtLtMotion(frState["r"])
-    setFdBkMotion(frState["f"])
-
-def setFdBkMotion(fFloat):
-    pass
-
-def setRtLtMotion(rFloat):
-    pass
