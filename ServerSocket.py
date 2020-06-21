@@ -14,7 +14,7 @@ possibleStates = [
 def getIP(interface = "eth0"):
     return netifaces.ifaddresses(interface)[2][0]['addr']
 
-ServerIP = getIP()
+ServerIP = getIP(interface="wlan0")
 ServerPort = 42069
 # ServerPort = 99
 
