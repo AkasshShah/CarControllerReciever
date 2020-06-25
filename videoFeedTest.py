@@ -9,7 +9,7 @@ import socketserver
 from threading import Condition
 from http import server
 
-PAGE="""
+PAGE="""\
 <html>
 <head>
 <title>Raspberry Pi - Surveillance Camera</title>
