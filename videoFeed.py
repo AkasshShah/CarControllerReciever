@@ -27,15 +27,15 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
         print(self.path)
         if self.path == '/':
             self.send_response(301)
-            self.send_header('Location', '/stream.mjpg')
+            self.send_header('Location', '/inded.html')
             self.end_headers()
-        # elif self.path == '/index.html':
-        #     content = PAGE.encode('utf-8')
-        #     self.send_response(200)
-        #     self.send_header('Content-Type', 'text/html')
-        #     self.send_header('Content-Length', len(content))
-        #     self.end_headers()
-        #     self.wfile.write(content)
+        elif self.path == '/index.html':
+            content = PAGE.encode('utf-8')
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/html')
+            self.send_header('Content-Length', len(content))
+            self.end_headers()
+            self.wfile.write(content)
         elif self.path == '/stream.mjpg':
             self.send_response(200)
             self.send_header('Age', 0)
@@ -67,9 +67,11 @@ class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
     daemon_threads = True
 
 output = StreamingOutput()
-
-def startCam(height=640, width=480, frameRate=24, rotation=0):
+def startCam(height=640, width=480, frameRate=60, rotation=0):
+    global PAGE
+    global output
     reso = str(height) + "x" + str(width)
+    PAGE = "<html><head><title>Raspi Cam</title></head><body><center><h1>Raspi Cam</h1></center><center><img src=\"stream.mjpg\" width=\"" + width + "\" height=\"" + height + "\"></center></body></html>"
     camera = picamera.PiCamera(resolution=reso, framerate=frameRate)
     camera.rotation = rotation
     camera.start_recording(output, format='mjpeg')
