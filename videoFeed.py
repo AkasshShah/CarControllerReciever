@@ -67,7 +67,7 @@ class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
     daemon_threads = True
 
 output = StreamingOutput()
-def startCam(height=640, width=480, frameRate=60, rotation=0):
+def startCam(height=480, width=640, frameRate=60, rotation=0):
     global PAGE
     reso = str(height) + "x" + str(width)
     PAGE = "<html><head><title>Raspi Cam</title></head><body><center><h1>Raspi Cam</h1></center><center><img src=\"stream.mjpg\" width=\"" + str(width) + "\" height=\"" + str(height) + "\"></center></body></html>"

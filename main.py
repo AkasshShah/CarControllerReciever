@@ -22,7 +22,7 @@ if __name__ == "__main__":
     frState = {"r": 0.0, "f": 0.0}
     GP.pinsSetup() # now redundant, but fine to keep
     try:
-        camera = VF.startCam(height=640, width=480, frameRate=60, rotation=180)
+        camera = VF.startCam(height=480, width=640, frameRate=60, rotation=180)
         cameraServer = VF.StreamingServer((SS.ServerIP, SS.CameraPort), VF.StreamingHandler)
         cameraServer.serve_forever()
         while True:
