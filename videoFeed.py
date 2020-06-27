@@ -69,7 +69,6 @@ class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
 output = StreamingOutput()
 def startCam(height=640, width=480, frameRate=60, rotation=0):
     global PAGE
-    global output
     reso = str(height) + "x" + str(width)
     PAGE = "<html><head><title>Raspi Cam</title></head><body><center><h1>Raspi Cam</h1></center><center><img src=\"stream.mjpg\" width=\"" + width + "\" height=\"" + height + "\"></center></body></html>"
     camera = picamera.PiCamera(resolution=reso, framerate=frameRate)
