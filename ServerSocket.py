@@ -16,7 +16,7 @@ def getIP(interface = "eth0"):
 
 ServerIP = getIP(interface="wlan0")
 ServerPort = 42069
-# ServerPort = 99
+CameraPort = 42068
 
 def closeConnection(state, connection, sock):
     print("closing")

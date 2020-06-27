@@ -7,6 +7,7 @@ import time
 import json
 import ServerSocket as SS
 import HandleGPIO as GP
+import videoFeed as VF
 
 if __name__ == "__main__":
     print(sys.argv)
@@ -21,6 +22,9 @@ if __name__ == "__main__":
     frState = {"r": 0.0, "f": 0.0}
     GP.pinsSetup() # now redundant, but fine to keep
     try:
+        camera = VF.startCam(height=640, width=480, frameRate=24, rotation=0)
+        cameraServer = VF.StreamingServer((SS.ServerIP, SS.CameraPort), VF.StreamingHandler)
+        cameraServer.serve_forever()
         while True:
             if sockState == SS.possibleStates[0]:
                 try:
@@ -39,4 +43,5 @@ if __name__ == "__main__":
                 # set GPIO Pins according to frState
     finally:
         print("cleaning up")
+        VF.stopCam(camera)
         GP.pinsCleanup()
