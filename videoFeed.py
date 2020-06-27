@@ -27,7 +27,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
         print(self.path)
         if self.path == '/':
             self.send_response(301)
-            self.send_header('Location', '/inded.html')
+            self.send_header('Location', '/index.html')
             self.end_headers()
         elif self.path == '/index.html':
             content = PAGE.encode('utf-8')
