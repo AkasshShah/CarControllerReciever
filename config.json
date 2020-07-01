@@ -5,7 +5,7 @@
     "CameraSetup": {
         "width": 640,
         "height": 480,
-        "framerate": 30,
+        "framerate": 60,
         "rotation": 180
     },
     "ControllerPort": 42069,
