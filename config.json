@@ -2,6 +2,12 @@
     "CameraOn": true,
     "LAN_Interface": "wlan0",
     "CameraPort": 42068,
+    "CameraSetup": {
+        "width": 640,
+        "height": 480,
+        "framerate": 30,
+        "rotation": 180
+    },
     "ControllerPort": 42069,
     "GPIO_pinAssignment": {
         "FrontServoSignalPin": "GPIO5",

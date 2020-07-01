@@ -34,7 +34,7 @@ if __name__ == "__main__":
     GP.pinsSetup() # now redundant, but fine to keep
     try:
         if config["CameraOn"]:
-            camera = VF.startCam(height=480, width=640, frameRate=60, rotation=180)
+            camera = VF.startCam(height=config["CameraSetup"]["height"], width=config["CameraSetup"]["width"], frameRate=config["CameraSetup"]["framerate"], rotation=config["CameraSetup"]["rotation"])
             cameraServer = VF.StreamingServer((SS.ServerIP, SS.CameraPort), VF.StreamingHandler)
             cameraServer.serve_forever()
         while True:
