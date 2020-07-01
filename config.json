@@ -1,0 +1,11 @@
+{
+    "CameraOn": true,
+    "LAN_Interface": "wlan0",
+    "CameraPort": 8080,
+    "ControllerPort": 42069,
+    "GPIO_pinAssignment": {
+        "FrontServoSignalPin": "GPIO5",
+        "BackMotor1": "GPIO6",
+        "BackMotor2": "GPIO13"
+    }
+}

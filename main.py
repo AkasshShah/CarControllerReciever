@@ -9,7 +9,18 @@ import ServerSocket as SS
 import HandleGPIO as GP
 import videoFeed as VF
 
+def handle_json(filename):
+    global config
+    f = open(filename)
+    config = json.load(f)
+    f.close()
+    SS.ServerIP = SS.getIP(interface=config["LAN_Interface"])
+    SS.CameraPort = config["CameraPort"]
+    SS.ServerPort = config["ControllerPort"]
+
+
 if __name__ == "__main__":
+    handle_json('config.json')
     print(sys.argv)
     with open("pids.txt", "w") as file1:
         L = ["bash pid: " + str(sys.argv[-1]), "\npyth pid: " + str(os.getpid())]
@@ -22,9 +33,10 @@ if __name__ == "__main__":
     frState = {"r": 0.0, "f": 0.0}
     GP.pinsSetup() # now redundant, but fine to keep
     try:
-        camera = VF.startCam(height=480, width=640, frameRate=60, rotation=180)
-        cameraServer = VF.StreamingServer((SS.ServerIP, SS.CameraPort), VF.StreamingHandler)
-        cameraServer.serve_forever()
+        if config["CameraOn"]:
+            camera = VF.startCam(height=480, width=640, frameRate=60, rotation=180)
+            cameraServer = VF.StreamingServer((SS.ServerIP, SS.CameraPort), VF.StreamingHandler)
+            cameraServer.serve_forever()
         while True:
             if sockState == SS.possibleStates[0]:
                 try:
@@ -43,5 +55,6 @@ if __name__ == "__main__":
                 # set GPIO Pins according to frState
     finally:
         print("cleaning up")
-        VF.stopCam(camera)
+        if config["CameraOn"]:
+            VF.stopCam(camera)
         GP.pinsCleanup()
