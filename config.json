@@ -1,7 +1,7 @@
 {
     "CameraOn": true,
     "LAN_Interface": "wlan0",
-    "CameraPort": 8080,
+    "CameraPort": 42068,
     "ControllerPort": 42069,
     "GPIO_pinAssignment": {
         "FrontServoSignalPin": "GPIO5",
