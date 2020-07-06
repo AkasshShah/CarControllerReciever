@@ -1,43 +1,28 @@
 import time
-import RPi.GPIO as GPIO
+import gpiozero
 
-def pinsSetup():
-    GPIO.setmode(GPIO.BOARD)
+class Car:
+    def __init__(self, backmotor1, backmotor2, frontservo, frontservoReverser: bool, throttleMaxAfter: float):
+        self.throttleMaxAfter = abs(throttleMaxAfter)
+        self.frontservoReverser = frontservoReverser
+        self.backmotor = gpiozero.Motor(forward=backmotor1, backward=backmotor2, pwm=True)
 
-class Pin:
-    def __init__(self, boardPinNum: int, IO):
-        self.pin = boardPinNum
-        self.IO = IO
-        GPIO.setup(self.pin, self.IO)
-
-class Servo:
-    def __init__(self, pin: int, pulseClock):
-        self.Pin = Pin(pin, GPIO.OUT)
-        self.pulse = pulseClock # in Hz
-        self.servo = GPIO.PWM(self.Pin.pin, self.pulse)
-        self.start()
-
-    def start(self, n = 0):
-        self.servo.start(n)
-
-    def setAngle(self, angle = 90.0):
-        # angle in deg, between 0 and 180
-        self.servo.ChangeDutyCycle(2+(angle/18))
-
-    def stop(self):
-        self.servo.stop()
-
-    def stopMoving(self):
-        self.servo.ChangeDutyCycle(0)
-
-class Motor:
-    def __init__(self, enablePin, pin1, pin2):
-        self.enablePin = Pin(enablePin, GPIO.OUT)
-        self.pin1 = Pin(pin1, GPIO.OUT)
-        self.pin2 = Pin(pin2, GPIO.OUT)
+    def moveForward(self, speed: float):
+        # -1<=speed<=1
+        if speed < 0:
+            self.backmotor.backward(speed=-speed)
+        else:
+            self.backmotor.forward(speed=speed)
     
-    def enableDisable(self, tOrF):
-        self.enablePin
+    def setFR(self, f: float, r: float):
+        if abs(f) >= self.throttleMaxAfter:
+            if f > 0:
+                f = 1
+            elif f < 0:
+                f = -1
+        if self.frontservoReverser:
+            r = -r
+        self.moveForward(speed=f)
 
-def pinsCleanup():
-    GPIO.cleanup()
+    def cleanup(self):
+        pass

@@ -31,8 +31,8 @@ if __name__ == "__main__":
     sock.listen(1)
     sockState = SS.possibleStates[0]
     frState = {"r": 0.0, "f": 0.0}
-    GP.pinsSetup() # now redundant, but fine to keep
     try:
+        car = GP.Car(config["GPIO_pinAssignment"]["BackMotor1"], config["GPIO_pinAssignment"]["BackMotor2"], config["GPIO_pinAssignment"]["FrontServoSignalPin"], config["GPIO_pinAssignment"]["FrontServoReverser"], config["GPIO_pinAssignment"]["ThrottleMaxAfter"])
         if config["CameraOn"]:
             camera = VF.startCam(height=config["CameraSetup"]["height"], width=config["CameraSetup"]["width"], frameRate=config["CameraSetup"]["framerate"], rotation=config["CameraSetup"]["rotation"])
             cameraServer = VF.StreamingServer((SS.ServerIP, SS.CameraPort), VF.StreamingHandler)
@@ -53,8 +53,8 @@ if __name__ == "__main__":
                 sockState = SS.possibleStates[1]
                 frState = SS.handleMessage(received_message, frState, sockState, connection, sock)
                 # set GPIO Pins according to frState
+                car.setFR(f=frState["f"], r=frState["r"])
     finally:
         print("cleaning up")
         if config["CameraOn"]:
             VF.stopCam(camera)
-        GP.pinsCleanup()
