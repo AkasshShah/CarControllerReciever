@@ -11,7 +11,9 @@
     "ControllerPort": 42069,
     "GPIO_pinAssignment": {
         "FrontServoSignalPin": "GPIO5",
+        "FrontServoReverser": true,
         "BackMotor1": "GPIO6",
-        "BackMotor2": "GPIO13"
+        "BackMotor2": "GPIO13",
+        "ThrottleMaxAfter": 0.96
     }
 }
