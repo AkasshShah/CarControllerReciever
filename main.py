@@ -22,9 +22,9 @@ def handle_json(filename):
 if __name__ == "__main__":
     handle_json('config.json')
     print(sys.argv)
-    with open("pids.txt", "w") as file1:
-        L = ["bash pid: " + str(sys.argv[-1]), "\npyth pid: " + str(os.getpid())]
-        file1.writelines(L)
+    # with open("pids.txt", "w") as file1:
+    #     L = ["bash pid: " + str(sys.argv[-1]), "\npyth pid: " + str(os.getpid())]
+    #     file1.writelines(L)
     print("starting at", SS.ServerIP, "on port", SS.ServerPort, "pid: ", os.getpid())
     connection = None
     sock = SS.startSocket()
@@ -33,10 +33,11 @@ if __name__ == "__main__":
     frState = {"r": 0.0, "f": 0.0}
     try:
         car = GP.Car(config["GPIO_pinAssignment"]["BackMotor1"], config["GPIO_pinAssignment"]["BackMotor2"], config["GPIO_pinAssignment"]["FrontServoSignalPin"], config["GPIO_pinAssignment"]["FrontServoReverser"], config["GPIO_pinAssignment"]["ThrottleMaxAfter"])
-        if config["CameraOn"]:
-            camera = VF.startCam(height=config["CameraSetup"]["height"], width=config["CameraSetup"]["width"], frameRate=config["CameraSetup"]["framerate"], rotation=config["CameraSetup"]["rotation"])
-            cameraServer = VF.StreamingServer((SS.ServerIP, SS.CameraPort), VF.StreamingHandler)
-            cameraServer.serve_forever()
+        # need to start a new thread for the camera and webserver else will not work
+        # if config["CameraOn"]:
+        #     camera = VF.startCam(height=config["CameraSetup"]["height"], width=config["CameraSetup"]["width"], frameRate=config["CameraSetup"]["framerate"], rotation=config["CameraSetup"]["rotation"])
+        #     cameraServer = VF.StreamingServer((SS.ServerIP, SS.CameraPort), VF.StreamingHandler)
+        #     cameraServer.serve_forever()
         while True:
             if sockState == SS.possibleStates[0]:
                 try:
@@ -56,5 +57,5 @@ if __name__ == "__main__":
                 car.setFR(f=frState["f"], r=frState["r"])
     finally:
         print("cleaning up")
-        if config["CameraOn"]:
-            VF.stopCam(camera)
+        # if config["CameraOn"]:
+        #     VF.stopCam(camera)
