@@ -6,6 +6,7 @@ import netifaces
 import time
 import json
 import threading
+import multiprocessing 
 import ServerSocket as SS
 import HandleGPIO as GP
 import videoFeed as VF
@@ -34,12 +35,12 @@ if __name__ == "__main__":
     frState = {"r": 0.0, "f": 0.0}
     try:
         car = GP.Car(config["GPIO_pinAssignment"]["BackMotor1"], config["GPIO_pinAssignment"]["BackMotor2"], config["GPIO_pinAssignment"]["FrontServoSignalPin"], config["GPIO_pinAssignment"]["FrontServoReverser"], config["GPIO_pinAssignment"]["ThrottleMaxAfter"])
-        # need to start a new thread for the camera and webserver else will not work
         if config["CameraOn"]:
             camera = VF.startCam(height=config["CameraSetup"]["height"], width=config["CameraSetup"]["width"], frameRate=config["CameraSetup"]["framerate"], rotation=config["CameraSetup"]["rotation"])
             cameraServer = VF.StreamingServer((SS.ServerIP, SS.CameraPort), VF.StreamingHandler)
-            camWebServerThread = threading.Thread(target=cameraServer.serve_forever)
-            camWebServerThread.start()
+            # p = threading.Thread(target=cameraServer.serve_forever)
+            p = multiprocessing.Process(target=cameraServer.serve_forever)
+            p.start()
             # cameraServer.serve_forever()
         while True:
             if sockState == SS.possibleStates[0]:
@@ -62,4 +63,6 @@ if __name__ == "__main__":
         print("cleaning up")
         if config["CameraOn"]:
             VF.stopCam(camera)
-            camWebServerThread.join()
+            p.terminate()
+            p.join()
+            # exit()
