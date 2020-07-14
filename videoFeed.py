@@ -64,7 +64,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
 
 class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
     allow_reuse_address = True
-    daemon_threads = True
+    daemon_threads = False
 
 output = StreamingOutput()
 def startCam(height=480, width=640, frameRate=60, rotation=0):
@@ -76,5 +76,11 @@ def startCam(height=480, width=640, frameRate=60, rotation=0):
     camera.start_recording(output, format='mjpeg')
     return camera
 
-def stopCam(camera):
+def stopCam():
     camera.stop_recording()
+
+def start(addressss=("0.0.0.0", 42068), height=480, width=640, frameRate=60, rotation=0):
+    global camera
+    camera = startCam(height=height, width=width, frameRate=frameRate, rotation=rotation)
+    cameraServer = StreamingServer(addressss, StreamingHandler)
+    cameraServer.serve_forever()

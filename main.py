@@ -36,10 +36,15 @@ if __name__ == "__main__":
     try:
         car = GP.Car(config["GPIO_pinAssignment"]["BackMotor1"], config["GPIO_pinAssignment"]["BackMotor2"], config["GPIO_pinAssignment"]["FrontServoSignalPin"], config["GPIO_pinAssignment"]["FrontServoReverser"], config["GPIO_pinAssignment"]["ThrottleMaxAfter"])
         if config["CameraOn"]:
-            camera = VF.startCam(height=config["CameraSetup"]["height"], width=config["CameraSetup"]["width"], frameRate=config["CameraSetup"]["framerate"], rotation=config["CameraSetup"]["rotation"])
-            cameraServer = VF.StreamingServer((SS.ServerIP, SS.CameraPort), VF.StreamingHandler)
+            # camera = VF.startCam(height=config["CameraSetup"]["height"], width=config["CameraSetup"]["width"], frameRate=config["CameraSetup"]["framerate"], rotation=config["CameraSetup"]["rotation"])
+            # cameraServer = VF.StreamingServer((SS.ServerIP, SS.CameraPort), VF.StreamingHandler)
             # p = threading.Thread(target=cameraServer.serve_forever)
-            p = multiprocessing.Process(target=cameraServer.serve_forever)
+            address = (SS.ServerIP, SS.CameraPort)
+            h = config["CameraSetup"]["height"]
+            w = config["CameraSetup"]["width"]
+            framerateeeee = config["CameraSetup"]["framerate"]
+            rot = config["CameraSetup"]["rotation"]
+            p = multiprocessing.Process(target=VF.start, args=(address, h, w, framerateeeee, rot, ))
             p.start()
             # cameraServer.serve_forever()
         while True:
@@ -62,7 +67,7 @@ if __name__ == "__main__":
     finally:
         print("cleaning up")
         if config["CameraOn"]:
-            VF.stopCam(camera)
+            VF.stopCam()
             p.terminate()
             p.join()
             # exit()
