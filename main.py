@@ -39,12 +39,12 @@ if __name__ == "__main__":
             # camera = VF.startCam(height=config["CameraSetup"]["height"], width=config["CameraSetup"]["width"], frameRate=config["CameraSetup"]["framerate"], rotation=config["CameraSetup"]["rotation"])
             # cameraServer = VF.StreamingServer((SS.ServerIP, SS.CameraPort), VF.StreamingHandler)
             # p = threading.Thread(target=cameraServer.serve_forever)
-            address = (SS.ServerIP, SS.CameraPort)
+            camAddress = (SS.ServerIP, SS.CameraPort)
             h = config["CameraSetup"]["height"]
             w = config["CameraSetup"]["width"]
             framerateeeee = config["CameraSetup"]["framerate"]
             rot = config["CameraSetup"]["rotation"]
-            p = multiprocessing.Process(target=VF.start, args=(address, h, w, framerateeeee, rot, ))
+            p = multiprocessing.Process(target=VF.start, args=(camAddress, h, w, framerateeeee, rot, ))
             p.start()
             # cameraServer.serve_forever()
         while True:
@@ -55,7 +55,8 @@ if __name__ == "__main__":
                     print("connected from", address)
                     sockState = SS.possibleStates[1]
                 except:
-                    connection.close()
+                    if connection:
+                        connection.close()
                     break
             if sockState == SS.possibleStates[1]:
                 received_message = connection.recv(1024)
@@ -67,7 +68,7 @@ if __name__ == "__main__":
     finally:
         print("cleaning up")
         if config["CameraOn"]:
-            VF.stopCam()
+            # VF.stopCam()
             p.terminate()
             p.join()
             # exit()
